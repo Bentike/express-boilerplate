@@ -19,7 +19,7 @@ app.get("/json", (req, res) => {
     let jsonFile;
     process.env.MESSAGE_STYLE == "uppercase" ?
      jsonFile = {"message": "HELLO JSON"} :
-     jsonFile = {"message": "hello json"};
+     jsonFile = {"message": "Hello json"};
     res.json(jsonFile);
 })
 
