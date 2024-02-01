@@ -62,6 +62,11 @@ app.get(
     }
   );
 
+  app.get("/word/:word/echo", (req, res) => {
+      res.send({
+        echo: req.params.word
+      });
+  })
 
 
 
