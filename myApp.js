@@ -7,6 +7,7 @@ require('dotenv').config();
 // How to serve a static file
 app.use("/public", express.static(__dirname + "/public"));
 
+// How to implement root level middleware
 app.use((req, res, next) => {
     console.log(req.method + " " + req.path + " - " + req.ip);
     next();
@@ -26,6 +27,16 @@ app.get("/json", (req, res) => {
      jsonFile = {"message": "HELLO JSON"} :
      jsonFile = {"message": "Hello json"};
     res.json(jsonFile);
+});
+
+// Adding middleware to a specific route and chaining middleware
+app.get("/now", (req, res, next) => {
+    req.time = new Date().toString();
+    next();
+}, (req, res) => {
+    res.send({
+        time: req.time
+    })
 })
 
 
