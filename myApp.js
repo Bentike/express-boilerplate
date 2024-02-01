@@ -57,6 +57,13 @@ app.get("/now", (req, res, next) => {
     res.json({
         name: `${firstname} ${lastname}`
     });
+  });
+
+  app.post("/name", (req, res) => {
+    let {first: firstname, last: lastname} = req.body;
+    res.json({
+        name: `${firstname} ${lastname}`
+    })
   })
 
 
