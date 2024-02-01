@@ -47,8 +47,9 @@ app.get(
       let time = req.time.split('')
       let newTime = [];
       for(let i =0; i < time.length; i++){
-         if(i != 17) newTime.push(time[i]);
-         else if(i == 17) newTime.push(3)
+         if(i != 17 && i != 30) newTime.push(time[i]);
+         if(i == 17) newTime.push(3);
+         else if(i == 30) newTime.push(1);
       }
       let currentTime = newTime.join("");
       req.time = currentTime;
