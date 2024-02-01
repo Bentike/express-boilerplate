@@ -44,6 +44,14 @@ app.get(
     "/now",
     (req, res, next) => {
       req.time = new Date().toString();
+      let time = req.time.split('')
+      let newTime = [];
+      for(let i =0; i < time.length; i++){
+         if(i != 17) newTime.push(time[i]);
+         else if(i == 17) newTime.push(3)
+      }
+      let currentTime = newTime.join("");
+      req.time = currentTime;
       next();
     },
     (req, res) => {
