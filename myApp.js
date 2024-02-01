@@ -1,11 +1,15 @@
 let express = require('express');
 let app = express();
+let bodyParser = require('body-parser');
 
 // this allow access to .env environment variables
 require('dotenv').config();
 
 // How to serve a static file
 app.use("/public", express.static(__dirname + "/public"));
+
+// Setup body-parser to parse POST requests
+app.use(bodyParser.urlencoded({extended: false}));
 
 // How to implement root level middleware
 app.use((req, res, next) => {
@@ -29,38 +33,16 @@ app.get("/json", (req, res) => {
     res.json(jsonFile);
 });
 
-// Adding middleware to a specific route and chaining middleware
-// app.get("/now", (req, res, next) => {
-//     req.time = new Date().toString();
-//     next();
-// }, (req, res) => {
-//     res.send({
-//         time: req.time
-//     });
-// })
-
-
-app.get(
-    "/now",
-    (req, res, next) => {
-      req.time = new Date().toString();
-      let time = req.time.split('')
-      let newTime = [];
-      for(let i =0; i < time.length; i++){
-         if(i != 17 && i != 30) newTime.push(time[i]);
-         if(i == 17) newTime.push(3);
-         else if(i == 30) newTime.push(1);
-      }
-      let currentTime = newTime.join("");
-      req.time = currentTime;
-      next();
-    },
-    (req, res) => {
-      res.send({
+//Adding middleware to a specific route and chaining middleware
+app.get("/now", (req, res, next) => {
+    req.time = new Date().toString();
+    next();
+}, (req, res) => {
+    res.send({
         time: req.time
-      });
-    }
-  );
+    });
+})/
+
 
   // Route params
   app.get("/:word/echo", (req, res) => {
