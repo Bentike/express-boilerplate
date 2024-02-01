@@ -62,12 +62,20 @@ app.get(
     }
   );
 
+  // Route params
   app.get("/:word/echo", (req, res) => {
       res.send({
         echo: req.params.word
       });
   })
 
+  // Getting data through query
+  app.get("/name", (req, res) => {
+    let {first: firstname, last: lastname} = req.query;
+    res.json({
+        name: `${firstname} ${lastname}`
+    });
+  })
 
 
 
