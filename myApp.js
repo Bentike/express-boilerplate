@@ -30,15 +30,28 @@ app.get("/json", (req, res) => {
 });
 
 // Adding middleware to a specific route and chaining middleware
-app.get("/now", (req, res, next) => {
-    req.time = new Date().toString();
-    next();
-}, (req, res) => {
-    res.send({
-        time: req.time
-    });
-})
+// app.get("/now", (req, res, next) => {
+//     req.time = new Date().toString();
+//     next();
+// }, (req, res) => {
+//     res.send({
+//         time: req.time
+//     });
+// })
 
+
+app.get(
+    "/now",
+    (req, res, next) => {
+      req.time = new Date().toString();
+      next();
+    },
+    (req, res) => {
+      res.send({
+        time: req.time
+      });
+    }
+  );
 
 
 
