@@ -31,12 +31,12 @@ app.get("/json", (req, res) => {
 
 // Adding middleware to a specific route and chaining middleware
 app.get("/now", (req, res, next) => {
-    req.time = new Date().toString();
+    req.time = new Date().toLocaleString();
     next();
 }, (req, res) => {
-    res.json({
+    res.send({
         time: req.time
-    })
+    });
 })
 
 
