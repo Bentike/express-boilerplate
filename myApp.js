@@ -7,6 +7,11 @@ require('dotenv').config();
 // How to serve a static file
 app.use("/public", express.static(__dirname + "/public"));
 
+app.use((req, res, next) => {
+    console.log(req.method + " " + req.path + " - " + req.ip);
+    next();
+})
+
 const myFile = __dirname + "/views/index.html";
 
 // Use res.sendFile to send a file
