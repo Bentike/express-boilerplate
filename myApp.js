@@ -11,7 +11,7 @@ app.use("/public", express.static(__dirname + "/public"));
 // Setup body-parser to parse POST requests
 app.use(bodyParser.urlencoded({extended: false}));
 
-// How to implement root level middleware
+// How to implement root level middleware that works on all route
 app.use((req, res, next) => {
     console.log(req.method + " " + req.path + " - " + req.ip);
     next();
@@ -33,15 +33,17 @@ app.get("/json", (req, res) => {
     res.json(jsonFile);
 });
 
-//Adding middleware to a specific route and chaining middleware
-app.get("/now", (req, res, next) => {
+const getTimeMiddleware = (req, res, next) => {
     req.time = new Date().toString();
     next();
-}, (req, res) => {
-    res.send({
-        time: req.time
-    });
-})/
+}
+
+//Adding middleware to a specific route and chaining middleware
+app.get("/now", getTimeMiddleware,  (req, res) => {
+     res.send({
+        currentTime: req.time
+     });
+});
 
 
   // Route params
